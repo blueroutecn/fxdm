@@ -132,3 +132,37 @@ def tree_binning(data, var, label, special_attribute=[],treeClassifier=DecisionT
     if len(cp) == 0:
         raise ValueError("detect empty cp for {0} in tree_binning".format([var,label]))
     return cp
+
+##---------------------------------有监督卡方分箱--------------------------------------------
+#-----------------辅助函数1 初始化数据分箱-----------
+def SplitData(df, col, numOfSplit, special_attribute=[]):
+    """
+    在原数据集上增加一列，把原始细粒度的col重新划分成粗粒度的值，便于分箱中的合并处理
+    :param df: 按照col排序后的数据集
+    :param col: 待分箱的变量
+    :param numOfSplit: 切分的组别数
+    :param special_attribute: 在切分数据集的时候，某些特殊值需要排除在外
+    :return: 
+    splitPoint： 初始化数据分箱的节点
+    """
+    df2 = df.copy()
+    if len(special_attribute) > 0:
+        df2 = df.loc[~df[col].isin(special_attribute)]
+    N = df2.shape[0]
+    n = int(N / numOfSplit)
+    splitPointIndex = [i*n for i in range(1, numOfSplit)]
+    rawValues = sorted(list(df2[col]))
+    splitPoint = [rawValues[i] for i in splitPointIndex]
+    splitPoint = sorted(list(set(splitPoint)))
+
+    aa = pd.Series(splitPoint)
+    if (aa[0] == 0.0) & (aa.shape[0] == 1):
+        numOfSplit = 1000
+        n = int(N / numOfSplit)
+        splitPointIndex = [i * n for i in range(1, numOfSplit)]
+        rawValues = sorted(list(df2[col]))
+        splitPoint = [rawValues[i] for i in splitPointIndex]
+        splitPoint = sorted(list(set(splitPoint)))
+    else:
+        pass
+    return splitPoint
