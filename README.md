@@ -1,6 +1,23 @@
 # rmfx
 工业优化模型构建的自建代码库
- 
+
+## Requirements
+scipy>=1.2.1
+pandas>=0.20.3,<=0.23.4
+scikit-learn>=0.20.3
+sklearn_pandas>=1.8.0
+sklearn2pmml>=0.44.0
+lightgbm>=2.2.3
+xgboost>=0.82
+matplotlib>=3.0.3
+seaborn>=0.9.0
+bayesian-optimization>=1.0.1
+tsfresh>=0.11.2
+featuretools>=0.7.0
+concurrent-utils>=0.2.0
+missingno>=0.4.1
+xlrd>=1.2.0
+
 ## 代码块构成
 ### fx_utills 基础工具包
 + **timecount**函数 计算运行时间的装饰函数
