@@ -1,4 +1,4 @@
-# rmfx
+# fxdm
 工业优化模型构建的自建代码库
 
 ## Requirements
